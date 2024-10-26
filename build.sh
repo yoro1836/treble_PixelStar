@@ -16,7 +16,7 @@ BV=$1
 
 initRepos() {
     echo "--> Initializing workspace"
-    repo init -u https://github.com/Project-PixelStar/manifest -b 14-qpr3 --git-lfs
+    repo init -u https://github.com/Project-pixelstar/manifest -b 14-qpr3 --git-lfs
     echo
 
     echo "--> Preparing local manifest"
