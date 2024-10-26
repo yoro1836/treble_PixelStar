@@ -28,6 +28,9 @@ jobs:
 
       - name: Set Build Variant
         run: echo "BUILD_VARIANT=${{ inputs.build_variant || 'treble_arm64_bgN' }}" >> $GITHUB_ENV
+
+      - name: Setup Env
+        run: sudo apt-get install repo python3
         
       - name: Build ROM
         run: bash build.sh
