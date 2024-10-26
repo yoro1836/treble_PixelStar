@@ -10,13 +10,13 @@ echo
 
 set -e
 
-BL=$PWD/treble_aosp
+BL=$PWD/treble_pixelstar
 BD=$HOME/builds
 BV=$1
 
 initRepos() {
     echo "--> Initializing workspace"
-    repo init -u https://android.googlesource.com/platform/manifest -b android-14.0.0_r55 --git-lfs
+    repo init -u https://github.com/Project-PixelStar/manifest -b 14-qpr3 --git-lfs
     echo
 
     echo "--> Preparing local manifest"
@@ -120,7 +120,7 @@ generateOta() {
     buildDate="$(date +%Y%m%d)"
     timestamp="$START"
     json="{\"version\": \"$version\",\"date\": \"$timestamp\",\"variants\": ["
-    find $BD/ -name "aosp-*-14.0-$buildDate.img.xz" | sort | {
+    find $BD/ -name "pixelstar-*-14.0-$buildDate.img.xz" | sort | {
         while read file; do
             filename="$(basename $file)"
             [[ "$filename" == *"-arm32"* ]] && arch="a64" || arch="arm64"
@@ -128,7 +128,7 @@ generateOta() {
             [[ "$filename" == *"-vndklite"* ]] && vndk="-vndklite" || vndk=""
             name="treble_${arch}_b${variant}N${vndk}"
             size=$(wc -c $file | awk '{print $1}')
-            url="https://github.com/ponces/treble_aosp/releases/download/$version/$filename"
+            url="https://github.com/yoro1836/treble_pixelstar/releases/download/$version/$filename"
             json="${json} {\"name\": \"$name\",\"size\": \"$size\",\"url\": \"$url\"},"
         done
         json="${json%?}]}"
